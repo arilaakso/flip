@@ -1,0 +1,87 @@
+<html>
+<head>
+<style>
+body {
+	font-size:12px;
+	font-family:arial;
+}
+</style>
+<script>
+
+var X = 0;
+var Y = 300;
+
+function flippaa() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	
+	for (var i=0;i<8;i++)
+	{
+		ctx.beginPath();
+		ctx.moveTo(X,Y);	
+		X = X + 5;
+		Y = Y + Math.floor((Math.random()*41)) - 20;
+		ctx.lineTo(X,Y);
+		ctx.strokeStyle = '#000000';
+		ctx.stroke();
+
+		if (X > 800)
+		{
+			ctx.clearRect(0, 0, c.width, c.height);
+			piirraViivasto();
+			ctx.beginPath();
+			X = 0;
+		}
+	}
+}
+
+function piirraViivasto()
+{
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	
+	ctx.beginPath();
+	ctx.strokeStyle = '#DDDDDD';
+	
+	for (var i=0;i<13;i++){	
+		ctx.moveTo(0,i*50); 
+		ctx.lineTo(800,i*50); 
+		ctx.stroke();
+	}
+}
+
+function tyhjenna() {
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	ctx.clearRect(0, 0, c.width, c.height);
+	ctx.beginPath();
+	X = 0;
+	Y = 300;
+	piirraViivasto();
+}
+	
+</script>
+</head>
+<body>
+
+<h1>Flippausta</h1>
+<button onclick="flippaa()" style="width:100; height:30;">Flippaa</button>
+<button onclick="tyhjenna()" style="width:100; height:30;">Resetoi</button><br>
+<canvas id="myCanvas" width="800" height="600"style="border:1px solid #000000;">
+</canvas>
+<div id="arvot" />
+<script>
+  piirraViivasto();
+  var topValue = 5.00;
+  for (var i = 0; i < 12; i++) {
+    var div = document.createElement("div");
+    div.style.position = 'absolute';
+    div.style.top = i * 50 + 80;
+    div.style.left = 815;
+    div.innerHTML = '$'+ (topValue - i * 0.20).toFixed(2);
+    document.getElementById('arvot').appendChild(div);
+  }
+
+</script>
+</body>
+</html> 
